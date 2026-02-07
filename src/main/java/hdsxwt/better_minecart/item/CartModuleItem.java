@@ -1,16 +1,15 @@
 package hdsxwt.better_minecart.item;
 
-import net.minecraft.client.item.TooltipContext;
+import java.util.List;
+
+// import net.minecraft.client.item.TooltipContext;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import hdsxwt.better_minecart.BetterMinecartMod;
-
-import java.util.List;
 
 public abstract class CartModuleItem extends Item {
     public enum ModuleType { ENGINE, BRAKE }
@@ -37,9 +36,10 @@ public abstract class CartModuleItem extends Item {
             .setStyle(Style.EMPTY.withColor(displayColor.getColorValue()));
     }
     
-    @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(stack, world, tooltip, context);
+        // super.appendTooltip(stack, context, tooltip, context);
+		// TODO
+		// fix the bug
         
         String statKey = moduleType == ModuleType.ENGINE 
             ? "tooltip.better_minecart.power_value" 
@@ -60,4 +60,5 @@ public abstract class CartModuleItem extends Item {
     public int getModuleTier() { return moduleTier; }
     public Formatting getDisplayColor() { return displayColor; }
     public String getModuleId() { return moduleId; }
+
 }

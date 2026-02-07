@@ -2,7 +2,7 @@ package hdsxwt.better_minecart.item;
 
 import hdsxwt.better_minecart.BetterMinecartMod;
 import hdsxwt.better_minecart.entity.ModEntities;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+// import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.item.MinecartItem;
 import net.minecraft.registry.Registries;
@@ -15,10 +15,10 @@ public class ModItems {
     // 基础物品
     public static final Item ACCELERATED_MINECART = register(
         "accelerated_minecart",
-        new MinecartItem(ModEntities.ACCELERATED_MINECART, new FabricItemSettings().maxCount(1))
+        new MinecartItem(ModEntities.ACCELERATED_MINECART, new Item.Settings().maxCount(1))
     );
     
-    public static final Item CHASSIS = register("chassis", new ChassisItem(new FabricItemSettings()));
+    public static final Item CHASSIS = register("chassis", new ChassisItem(new Item.Settings()));
     
     // 发动机系列
     public static final EngineModuleItem IRON_ENGINE = registerEngine(

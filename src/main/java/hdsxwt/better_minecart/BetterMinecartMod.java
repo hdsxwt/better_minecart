@@ -1,10 +1,5 @@
 package hdsxwt.better_minecart;
 
-import hdsxwt.better_minecart.block.ModBlocks;
-import hdsxwt.better_minecart.block.entity.ModBlockEntities;
-import hdsxwt.better_minecart.entity.ModEntities;
-import hdsxwt.better_minecart.item.ModItems;
-import hdsxwt.better_minecart.screen.ModScreenHandlers;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +12,6 @@ public class BetterMinecartMod implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("正在初始化 Better Minecart Mod (1.21.11)");
         
-        // 注册顺序很重要
-        ModItems.registerModItems();
-        ModBlocks.registerModBlocks();
-        ModBlockEntities.registerModBlockEntities();
-        ModEntities.registerModEntities();
-        ModScreenHandlers.registerModScreenHandlers();
         
         LOGGER.info("Better Minecart Mod 初始化完成");
     }

@@ -29,10 +29,10 @@ public class EntityRegisterHandler {
 	}
 
 	public static void register() {
-		BetterMinecartMod.LOGGER.info("--- Better Minecart Mod         --- registering mod entities");
+		BetterMinecartMod.LOGGER.info(BetterMinecartMod.MESSAGE_HEAD_STRING + "registering mod entities");
 		
 		register_ACCELERATED_MINECART();
 
-		BetterMinecartMod.LOGGER.info("--- Better Minecart Mod         --- registering mod entities complete");
+		BetterMinecartMod.LOGGER.info(BetterMinecartMod.MESSAGE_HEAD_STRING + "registering mod entities complete");
 	}
 }

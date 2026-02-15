@@ -11,17 +11,22 @@ import net.minecraft.text.Text;
 
 public class SpeedHudRenderer implements HudElement {
 	// HUD position and size constants
-	private static final int HUD_X = 100;
-	private static final int HUD_Y = 100;
-	private static final int HUD_WIDTH = 120;
-	private static final int HUD_HEIGHT = 40;
+	// TODO make these configurable
+	private static final double MAIN_HUD_X = 0.5;
+	private static final double MAIN_HUD_Y = 0.8;
+	private static final int MAIN_HUD_WIDTH = 120;
+	private static final int MAIN_HUD_HEIGHT = 20;
 	
+	private static final double BAR_HUD_X = 0.95;
+	private static final double BAR_HUD_Y = 0.5;
+	private static final int BAR_HUD_WIDTH = 10;
+	private static final int BAR_HUD_HEIGHT = 150;
+	private static final int MAX_SPEED = 4; // TODO make this configurable
+
 	// color constants
+	// TODO make these configurable
 	private static final int BACKGROUND_COLOR = 0x80000000; // semi-transparent black
-	private static final int TEXT_COLOR = Colors.WHITE; // white
-	private static final int SPEED_COLOR = Colors.GREEN; // green
-	private static final int WARNING_COLOR = Colors.RED; // red
-	private static final int BORDER_COLOR = Colors.WHITE; // white
+	private static final int BORDER_COLOR = Colors.BLACK.toInt();
 
 	// private static final Logger LOGGER = BetterMinecartMod.LOGGER;
 
@@ -40,54 +45,72 @@ public class SpeedHudRenderer implements HudElement {
 	private void renderSpeedHud(DrawContext drawContext, MinecraftClient client, 
 								AcceleratedMinecartEntity minecart, float tickDelta) {
 		TextRenderer textRenderer = client.textRenderer;
+
+		// calculate HUD position (middle corner)
+		int mainHudX = (int)(client.getWindow().getScaledWidth() * MAIN_HUD_X - MAIN_HUD_WIDTH / 2);
+		int mainHudY = (int)(client.getWindow().getScaledHeight() * MAIN_HUD_Y - MAIN_HUD_HEIGHT / 2);
+
+		int barHudX = (int)(client.getWindow().getScaledWidth() * BAR_HUD_X - BAR_HUD_WIDTH / 2);
+		int barHudY = (int)(client.getWindow().getScaledHeight() * BAR_HUD_Y - BAR_HUD_HEIGHT / 2);
 		
-		// background
-		drawContext.fill(HUD_X, HUD_Y, 
-				HUD_X + HUD_WIDTH, HUD_Y + HUD_HEIGHT, 
-				BACKGROUND_COLOR);
-						
-		
-		// border
-		drawBorder(drawContext, HUD_X, HUD_Y, HUD_WIDTH, HUD_HEIGHT, 2, BORDER_COLOR);
-		
-		// title
-		drawContext.drawText(textRenderer, 
-				Text.translatable("hud.better_minecart.speed"), 
-				HUD_X + 5, HUD_Y + 5, 
-				TEXT_COLOR, 
-				false);
+		// background and border
+		drawBackground(drawContext, mainHudX, mainHudY, MAIN_HUD_WIDTH, MAIN_HUD_HEIGHT, BACKGROUND_COLOR);
+		drawBorder(drawContext, mainHudX, mainHudY, MAIN_HUD_WIDTH, MAIN_HUD_HEIGHT, 2, BORDER_COLOR);
 		
 		// speed
 		double speed = minecart.getVelocity().length();
-		int speedColor = speed > 1.5 ? WARNING_COLOR : SPEED_COLOR;
+		int speedColor = getBarColor(Math.min(speed / MAX_SPEED, 1.0));
 		
-		String speedText = String.format("%.2f m/s", speed);
+		String speedText = Text.translatable("hud.better_minecart.speed").getString() + String.format(": %.2f m/s", speed);
 		drawContext.drawText(textRenderer, 
 				Text.literal(speedText), 
-				HUD_X + 5, HUD_Y + 20, 
+				mainHudX + 5, mainHudY + 5, 
 				speedColor, 
 				false);
 		
+		// TODO add configurable max speed
 		// speed bar (max speed 4.0 m/s)
-		renderSpeedBar(drawContext, HUD_X + 5, HUD_Y + 35, 
-					  Math.min(speed / 4.0, 1.0));
+		drawBackground(drawContext, barHudX, barHudY, BAR_HUD_WIDTH, BAR_HUD_HEIGHT, BACKGROUND_COLOR);
+		drawBorder(drawContext, barHudX, barHudY, BAR_HUD_WIDTH, BAR_HUD_HEIGHT, 2, BORDER_COLOR);
+		drawSpeedBar(drawContext, barHudX, barHudY, Math.min(speed / MAX_SPEED, 1.0), speedColor);
 	}
 
 	
-	
-	private void renderSpeedBar(DrawContext drawContext, int x, int y, double progress) {
-		int barWidth = HUD_WIDTH - 10;
-		int barHeight = 3;
-		
-		// background
-		drawContext.fill(x, y, x + barWidth, y + barHeight, 0xFF444444);
-		
-		// fill
-		int fillWidth = (int)(barWidth * progress);
-		int barColor = getBarColor(progress);
-		drawContext.fill(x, y, x + fillWidth, y + barHeight, barColor);
+	/**
+	 * Renders a horizontal speed bar based on the current speed progress (0.0 to 1.0).
+	 * The bar fills from left to right, changing color based on the speed level.
+	 * @param drawContext
+	 * @param x
+	 * @param y
+	 * @param progress
+	 */
+	private void drawSpeedBar(DrawContext drawContext, int x, int y, double progress, int color) {
+		int fillHeight = (int)(BAR_HUD_HEIGHT * progress);
+		drawContext.fill(x, y + BAR_HUD_HEIGHT - fillHeight, x + BAR_HUD_WIDTH, y + BAR_HUD_HEIGHT, color);
 	}
-	
+
+	/**
+	 * Draws a filled rectangle as the background for the HUD element.
+	 * @param drawContext
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param color
+	 */
+	private void drawBackground(DrawContext drawContext, int x, int y, int width, int height, int color) {
+			drawContext.fill(x, y, x + width, y + height, color);
+	}
+	/**
+	 * Draws a border around the HUD element with specified thickness and color.
+	 * @param drawContext
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param thickness
+	 * @param color
+	 */
 	private void drawBorder (DrawContext drawContext, int x, int y, int width, int height, int thickness, int color) {
 			// upper border
 			drawContext.fill(x - thickness, y - thickness, x + width + thickness, y, color);
@@ -99,12 +122,15 @@ public class SpeedHudRenderer implements HudElement {
 			drawContext.fill(x + width, y, x + width + thickness, y + height, color);
 	}
 	
+	/**
+	 * Determines the color of the speed bar based on the current speed progress.
+	 * The color transitions from green (slow) to red (fast) as progress increases.
+	 * @param progress Speed progress (0.0 to 1.0)
+	 * @return ARGB color as an integer
+	 */
 	private int getBarColor(double progress) {
-		if (progress < 0.3) return 0xFF00FF00; // 绿色
-		if (progress < 0.6) return 0xFFFFFF00; // 黄色
-		if (progress < 0.9) return 0xFFFFA500; // 橙色
-		return 0xFFFF0000; // 红色
+		Colors color = new Colors(255, (int)(255 * progress), (int)(255 * (1.0 - progress)), 0); // green to red
+		return color.toInt();
 	}
-
 	
 }

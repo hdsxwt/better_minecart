@@ -26,8 +26,16 @@ import net.minecraft.util.math.Vec3d;
 
 @Environment(EnvType.CLIENT)
 public abstract class AbstractAcceleratedMinecartRenderer<T extends AbstractMinecartEntity, S extends MinecartEntityRenderState> extends EntityRenderer<T, S>{
-	private static final Identifier TEXTURE = Identifier.of("better_minecart", "textures/entity/acceleratedMinecart.png");
+	private static Identifier texture = Identifier.ofVanilla("textures/entity/minecart.png");
 	protected final MinecartEntityModel model;
+
+	public static void setTexture(Identifier texture) {
+		AbstractAcceleratedMinecartRenderer.texture = texture;
+	}
+
+	public static Identifier getTexture() {
+		return texture;
+	}
 
 	public AbstractAcceleratedMinecartRenderer(EntityRendererFactory.Context ctx, EntityModelLayer layer) {
 		super(ctx);
@@ -74,7 +82,7 @@ public abstract class AbstractAcceleratedMinecartRenderer<T extends AbstractMine
 			this.model,
 			minecartEntityRenderState,
 			matrixStack,
-			this.model.getLayer(TEXTURE),
+			this.model.getLayer(texture),
 			minecartEntityRenderState.light,
 			OverlayTexture.DEFAULT_UV,
 			minecartEntityRenderState.outlineColor,
@@ -148,7 +156,6 @@ public abstract class AbstractAcceleratedMinecartRenderer<T extends AbstractMine
 	private static <T extends AbstractMinecartEntity, S extends MinecartEntityRenderState> void updateFromDefaultController(
 		T minecart, DefaultMinecartController controller, S state, float tickProgress
 	) {
-		float f = 0.3F;
 		state.lerpedPitch = minecart.getLerpedPitch(tickProgress);
 		state.lerpedYaw = minecart.getLerpedYaw(tickProgress);
 		double d = state.x;

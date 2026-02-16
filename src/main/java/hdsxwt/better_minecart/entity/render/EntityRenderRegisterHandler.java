@@ -15,6 +15,7 @@ public class EntityRenderRegisterHandler {
 	}
 
 	private static void RegisterEntityRendererFactories() {
+		AcceleratedMinecartRenderer.setTexture(Identifier.ofVanilla("textures/entity/endermite.png"));
 		EntityRendererFactories.register(EntityRegisterHandler.ACCELERATED_MINECART, AcceleratedMinecartRenderer::new);
 	}
 

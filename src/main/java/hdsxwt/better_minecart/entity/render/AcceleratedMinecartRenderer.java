@@ -4,7 +4,6 @@ import hdsxwt.better_minecart.entity.AcceleratedMinecartEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.state.MinecartEntityRenderState;
-import net.minecraft.util.Identifier;
 
 public class AcceleratedMinecartRenderer extends AbstractAcceleratedMinecartRenderer<AcceleratedMinecartEntity, MinecartEntityRenderState> {
 

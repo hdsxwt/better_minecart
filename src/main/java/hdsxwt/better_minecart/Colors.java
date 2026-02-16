@@ -41,6 +41,16 @@ public class Colors {
 	}
 
 	/**
+	 * Creates a default Colors object (opaque black).
+	 */
+	public Colors() {
+		this.a = 255;
+		this.r = 0;
+		this.g = 0;
+		this.b = 0;
+	}
+
+	/**
 	 * Converts this Colors object back to a single ARGB integer.
 	 * @return ARGB color as an integer (0xAARRGGBB)
 	 */

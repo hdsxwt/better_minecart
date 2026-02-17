@@ -8,7 +8,7 @@ import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.util.Identifier;
 
 
-public class EntityRenderRegisterHandler {
+public abstract class EntityRenderRegisterHandler {
 	public static void register() {
 		RegisterEntityRendererFactories();
 		RegisterSpeedHudRenderer();

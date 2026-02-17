@@ -8,7 +8,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 
-public class EntityRegisterHandler {
+public abstract class EntityRegisterHandler {
 	public static EntityType<AcceleratedMinecartEntity> ACCELERATED_MINECART;
 
 	private static void register_ACCELERATED_MINECART() {

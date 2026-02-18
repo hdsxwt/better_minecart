@@ -1,5 +1,6 @@
 package hdsxwt.better_minecart.entity.render;
 
+import hdsxwt.better_minecart.BetterMinecartClientMod;
 import hdsxwt.better_minecart.BetterMinecartMod;
 import hdsxwt.better_minecart.entity.EntityRegisterHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
@@ -15,7 +16,14 @@ public abstract class EntityRenderRegisterHandler {
 	}
 
 	private static void RegisterEntityRendererFactories() {
-		AcceleratedMinecartRenderer.setTexture(Identifier.ofVanilla("textures/entity/endermite.png"));
+		try {
+			AcceleratedMinecartRenderer.setTexture(Identifier.of(BetterMinecartMod.MOD_ID, "textures/entity/accelerate_minecart.png"));
+		} catch (Exception e) {
+			BetterMinecartMod.LOGGER.error(BetterMinecartClientMod.MESSAGE_HEAD_STRING +
+					"failed to set texture for Accelerated Minecart Renderer", e);
+		}
+		
+
 		EntityRendererFactories.register(EntityRegisterHandler.ACCELERATED_MINECART, AcceleratedMinecartRenderer::new);
 	}
 

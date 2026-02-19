@@ -14,6 +14,14 @@ import net.minecraft.util.Identifier;
 
 public abstract class ItemRegisterHandler {
 
+	public static void register() {
+		BetterMinecartMod.LOGGER.info(BetterMinecartMod.MESSAGE_HEAD_STRING + "registering mod items");
+		
+		registerAcceleratedMinecartItem();
+		registerAcceleratedMinecartItemGroup();
+		
+		BetterMinecartMod.LOGGER.info(BetterMinecartMod.MESSAGE_HEAD_STRING + "registering mod items complete");
+	}
 
 	public static final RegistryKey<Item> ACCELERATED_MINECART_KEY = RegistryKey.of(
 				Registries.ITEM.getKey(),
@@ -35,12 +43,8 @@ public abstract class ItemRegisterHandler {
 		Identifier.of(BetterMinecartMod.MOD_ID, "better_minecart_group")
 	);
 
-	public static void register() {
-		BetterMinecartMod.LOGGER.info(BetterMinecartMod.MESSAGE_HEAD_STRING + "registering mod items");
-		
-		registerAcceleratedMinecartItemGroup();
-		
-		BetterMinecartMod.LOGGER.info(BetterMinecartMod.MESSAGE_HEAD_STRING + "registering mod items complete");
+	private static void registerAcceleratedMinecartItem() {
+		return; // The item is registered inline with its declaration, so this method can be left empty or removed.
 	}
 
 	private static void registerAcceleratedMinecartItemGroup() {

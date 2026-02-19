@@ -11,13 +11,15 @@ import net.minecraft.util.Identifier;
 
 public abstract class EntityRenderRegisterHandler {
 	public static void register() {
+		BetterMinecartMod.LOGGER.info(BetterMinecartClientMod.MESSAGE_HEAD_STRING + "registering entity renderers and HUD elements");
 		RegisterEntityRendererFactories();
 		RegisterSpeedHudRenderer();
+		BetterMinecartMod.LOGGER.info(BetterMinecartClientMod.MESSAGE_HEAD_STRING + "registering entity renderers and HUD elements complete");
 	}
 
 	private static void RegisterEntityRendererFactories() {
 		try {
-			AcceleratedMinecartRenderer.setTexture(Identifier.of(BetterMinecartMod.MOD_ID, "textures/entity/accelerate_minecart.png"));
+			AcceleratedMinecartRenderer.setTexture(Identifier.of(BetterMinecartMod.MOD_ID, "textures/entity/accelerated_minecart.png"));
 		} catch (Exception e) {
 			BetterMinecartMod.LOGGER.error(BetterMinecartClientMod.MESSAGE_HEAD_STRING +
 					"failed to set texture for Accelerated Minecart Renderer", e);

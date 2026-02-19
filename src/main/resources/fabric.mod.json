@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "better_minecart",
-	"version": "${version}",
+	"version": "${mod_version}",
 	"name": "better_minecart",
 	"description": "添加可自定义装配的矿车系统。",
 	"authors": [

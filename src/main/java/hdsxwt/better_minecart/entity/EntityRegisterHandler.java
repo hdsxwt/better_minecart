@@ -11,7 +11,7 @@ import net.minecraft.registry.Registries;
 public abstract class EntityRegisterHandler {
 	public static EntityType<AcceleratedMinecartEntity> ACCELERATED_MINECART;
 
-	private static void register_ACCELERATED_MINECART() {
+	private static void registerAcceleratedMinecart() {
 		ACCELERATED_MINECART = EntityType.Builder.<AcceleratedMinecartEntity>create(
 				AcceleratedMinecartEntity::new,
 				SpawnGroup.MISC
@@ -19,11 +19,11 @@ public abstract class EntityRegisterHandler {
 			.dimensions(0.98f, 0.7f)
 			.build(RegistryKey.of(
 				Registries.ENTITY_TYPE.getKey(), 
-				Identifier.of(BetterMinecartMod.MOD_ID, "better_minecart")
+				Identifier.of(BetterMinecartMod.MOD_ID, "accelerated_minecart")
 			)
 		);
 		Registry.register(Registries.ENTITY_TYPE,
-			Identifier.of(BetterMinecartMod.MOD_ID, "better_minecart"),
+			Identifier.of(BetterMinecartMod.MOD_ID, "accelerated_minecart"),
 			ACCELERATED_MINECART
 		);
 	}
@@ -31,7 +31,7 @@ public abstract class EntityRegisterHandler {
 	public static void register() {
 		BetterMinecartMod.LOGGER.info(BetterMinecartMod.MESSAGE_HEAD_STRING + "registering mod entities");
 		
-		register_ACCELERATED_MINECART();
+		registerAcceleratedMinecart();
 
 		BetterMinecartMod.LOGGER.info(BetterMinecartMod.MESSAGE_HEAD_STRING + "registering mod entities complete");
 	}

@@ -1,4 +1,6 @@
 {
-	"entity.better_minecart.better_minecart": "Accelerated Minecart",
-	"hud.better_minecart.speed": "Speed"
+	"entity.better_minecart.accelerated_minecart": "Accelerated Minecart",
+	"hud.better_minecart.speed": "Speed",
+	"item.better_minecart.accelerated_minecart": "Accelerated Minecart",
+	"itemGroup.better_minecart.better_minecart_group": "Better Minecart"
 }

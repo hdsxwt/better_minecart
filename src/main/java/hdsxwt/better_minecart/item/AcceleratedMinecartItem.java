@@ -1,5 +1,6 @@
 package hdsxwt.better_minecart.item;
 
+import hdsxwt.better_minecart.BetterMinecartMod;
 import hdsxwt.better_minecart.entity.AcceleratedMinecartEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RailBlock;
@@ -8,12 +9,42 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class AcceleratedMinecartItem extends Item {
+
+	public static RegistryKey<Item> ACCELERATED_MINECART_KEY;
+
+	public static Item.Settings ACCELERATED_MINECART_SETTINGS;
+
+	public static Item ACCELERATED_MINECART;
+
+	public static void register() {
+		ACCELERATED_MINECART_KEY = RegistryKey.of(
+				Registries.ITEM.getKey(),
+				Identifier.of(BetterMinecartMod.MOD_ID, "accelerated_minecart")
+		);
+
+		ACCELERATED_MINECART_SETTINGS = new Item
+				.Settings()
+				.maxCount(1)
+				.registryKey(ACCELERATED_MINECART_KEY);
+
+		ACCELERATED_MINECART = Registry.register(Registries.ITEM,
+				Identifier.of(BetterMinecartMod.MOD_ID, "accelerated_minecart"),
+				new AcceleratedMinecartItem(ACCELERATED_MINECART_SETTINGS)
+		);
+
+		AcceleratedItemGroup.addToGroup(ACCELERATED_MINECART);
+	}
+
 	public AcceleratedMinecartItem(Settings settings) {
 		super(settings);
 	}

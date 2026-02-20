@@ -1,13 +1,17 @@
 package hdsxwt.better_minecart.entity.render;
 
+import hdsxwt.better_minecart.BetterMinecartMod;
 import hdsxwt.better_minecart.Colors;
 import hdsxwt.better_minecart.entity.AcceleratedMinecartEntity;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 public class SpeedHudRenderer implements HudElement {
 	// HUD position and size constants
@@ -133,4 +137,14 @@ public class SpeedHudRenderer implements HudElement {
 		return color.toInt();
 	}
 	
+	public static void register() {
+		SpeedHudRenderer speedHudRenderer = new SpeedHudRenderer();
+		Identifier hudElementId = Identifier.of(BetterMinecartMod.MOD_ID, "speed_hud");
+		
+		HudElementRegistry.attachElementBefore(
+			VanillaHudElements.CHAT,
+			hudElementId,
+			speedHudRenderer
+		);
+	}
 }

@@ -1,7 +1,6 @@
 package hdsxwt.better_minecart.item;
 
 import hdsxwt.better_minecart.entity.AcceleratedMinecartEntity;
-import hdsxwt.better_minecart.entity.EntityRegisterHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RailBlock;
 import net.minecraft.block.enums.RailShape;
@@ -37,7 +36,7 @@ public class AcceleratedMinecartItem extends Item {
 		if (world instanceof ServerWorld serverWorld) {
             // create the minecart entity
             AcceleratedMinecartEntity minecart = new AcceleratedMinecartEntity(
-                EntityRegisterHandler.ACCELERATED_MINECART, 
+                AcceleratedMinecartEntity.ACCELERATED_MINECART, 
                 world
             );
             minecart.setPosition(spawnPos.getX() + 0.5, spawnPos.getY() , spawnPos.getZ() + 0.5);

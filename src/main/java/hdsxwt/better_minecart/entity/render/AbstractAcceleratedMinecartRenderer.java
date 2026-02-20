@@ -26,16 +26,10 @@ import net.minecraft.util.math.Vec3d;
 
 @Environment(EnvType.CLIENT)
 public abstract class AbstractAcceleratedMinecartRenderer<T extends AbstractMinecartEntity, S extends MinecartEntityRenderState> extends EntityRenderer<T, S>{
-	private static Identifier texture = Identifier.ofVanilla("textures/entity/minecart.png");
 	protected final MinecartEntityModel model;
 
-	public static void setTexture(Identifier texture) {
-		AbstractAcceleratedMinecartRenderer.texture = texture;
-	}
 
-	public static Identifier getTexture() {
-		return texture;
-	}
+	public abstract Identifier getTexture();
 
 	public AbstractAcceleratedMinecartRenderer(EntityRendererFactory.Context ctx, EntityModelLayer layer) {
 		super(ctx);
@@ -82,7 +76,7 @@ public abstract class AbstractAcceleratedMinecartRenderer<T extends AbstractMine
 			this.model,
 			minecartEntityRenderState,
 			matrixStack,
-			this.model.getLayer(texture),
+			this.model.getLayer(this.getTexture()),
 			minecartEntityRenderState.light,
 			OverlayTexture.DEFAULT_UV,
 			minecartEntityRenderState.outlineColor,

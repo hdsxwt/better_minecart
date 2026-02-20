@@ -20,7 +20,11 @@ public class AcceleratedMinecartRenderer extends AbstractAcceleratedMinecartRend
 	}
 
 	public static void register() {
-		AcceleratedMinecartRenderer.setTexture(Identifier.of(BetterMinecartMod.MOD_ID, "textures/entity/accelerated_minecart.png"));
 		EntityRendererFactories.register(AcceleratedMinecartEntity.ACCELERATED_MINECART, AcceleratedMinecartRenderer::new);
+	}
+
+	@Override
+	public Identifier getTexture() {
+		return Identifier.of(BetterMinecartMod.MOD_ID, "textures/entity/accelerated_minecart.png");
 	}
 }

@@ -2,7 +2,6 @@ package hdsxwt.better_minecart.entity.render;
 
 import hdsxwt.better_minecart.BetterMinecartMod;
 import hdsxwt.better_minecart.Colors;
-import hdsxwt.better_minecart.entity.AcceleratedMinecartEntity;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
@@ -10,6 +9,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.entity.vehicle.MinecartEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -41,13 +41,13 @@ public class SpeedHudRenderer implements HudElement {
 		
 		// check if player is in an AcceleratedMinecartEntity
 
-		if (client.player != null && client.player.getVehicle() instanceof AcceleratedMinecartEntity minecart) {
+		if (client.player != null && client.player.getVehicle() instanceof MinecartEntity minecart) {
 			renderSpeedHud(context, client, minecart, tickCounter.getDynamicDeltaTicks());
 		}
 	}
 	
 	private void renderSpeedHud(DrawContext drawContext, MinecraftClient client, 
-								AcceleratedMinecartEntity minecart, float tickDelta) {
+								MinecartEntity minecart, float tickDelta) {
 		TextRenderer textRenderer = client.textRenderer;
 
 		// calculate HUD position (middle corner)
@@ -65,7 +65,8 @@ public class SpeedHudRenderer implements HudElement {
 		double speed = minecart.getVelocity().length();
 		int speedColor = getBarColor(Math.min(speed / MAX_SPEED, 1.0));
 		
-		String speedText = Text.translatable("hud.better_minecart.speed").getString() + String.format(": %.2f m/s", speed);
+		String speedText = Text.translatable("hud.better_minecart.speed").getString() +
+					String.format(": %.2f m/s", speed);
 		drawContext.drawText(textRenderer, 
 				Text.literal(speedText), 
 				mainHudX + 5, mainHudY + 5, 

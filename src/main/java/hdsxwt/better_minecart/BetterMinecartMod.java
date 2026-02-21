@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import hdsxwt.better_minecart.Input.MinecartInputPayload;
 import hdsxwt.better_minecart.entity.EntityRegisterHandler;
 import hdsxwt.better_minecart.item.ItemRegisterHandler;
 
@@ -19,6 +20,7 @@ public class BetterMinecartMod implements ModInitializer {
         
 		ItemRegisterHandler.register();
 		EntityRegisterHandler.register();
+		MinecartInputPayload.registerForServer();
         
         LOGGER.info(MESSAGE_HEAD_STRING + "initialization complete");
     }

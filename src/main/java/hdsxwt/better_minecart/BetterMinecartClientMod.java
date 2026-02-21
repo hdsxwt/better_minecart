@@ -1,5 +1,6 @@
 package hdsxwt.better_minecart;
 
+import hdsxwt.better_minecart.Input.MinecartInputPayload;
 import hdsxwt.better_minecart.entity.render.EntityRenderRegisterHandler;
 import net.fabricmc.api.ClientModInitializer;
 
@@ -12,6 +13,7 @@ public class BetterMinecartClientMod implements ClientModInitializer {
 		BetterMinecartMod.LOGGER.info(MESSAGE_HEAD_STRING + "initialing");
 
 		EntityRenderRegisterHandler.register();
+		MinecartInputPayload.registerForClient();
 		
 		
 		BetterMinecartMod.LOGGER.info(MESSAGE_HEAD_STRING + "initialization complete");

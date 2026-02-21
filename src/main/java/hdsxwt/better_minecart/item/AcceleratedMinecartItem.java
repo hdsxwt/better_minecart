@@ -4,7 +4,6 @@ import hdsxwt.better_minecart.BetterMinecartMod;
 import hdsxwt.better_minecart.entity.AcceleratedMinecartEntity;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.RailBlock;
 import net.minecraft.block.enums.RailShape;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -19,6 +18,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 public class AcceleratedMinecartItem extends Item {
 
@@ -80,24 +80,25 @@ public class AcceleratedMinecartItem extends Item {
 			}
 		}
 
+		
+		// create the minecart entity
+		AcceleratedMinecartEntity minecart = new AcceleratedMinecartEntity(
+			AcceleratedMinecartEntity.ACCELERATED_MINECART, 
+			world
+		);
+		minecart.setPosition(spawnPos.getX() + 0.5, spawnPos.getY() + offsetY, spawnPos.getZ() + 0.5);
+		minecart.setYaw(getYawFromRailShape(railShape));
+
 		if (world instanceof ServerWorld serverWorld) {
-			// create the minecart entity
-			AcceleratedMinecartEntity minecart = new AcceleratedMinecartEntity(
-				AcceleratedMinecartEntity.ACCELERATED_MINECART, 
-				world
-			);
-			minecart.setPosition(spawnPos.getX() + 0.5, spawnPos.getY() + offsetY, spawnPos.getZ() + 0.5);
-			minecart.setYaw(getYawFromRailShape(railShape));
-
-			// spawn the minecart entity in the world
 			serverWorld.spawnEntity(minecart);
-
-			// consume one item from the stack if the player is not in creative mode
-			if (player == null || !player.isCreative()) {
-				stack.decrement(1);
-			}
+			serverWorld.emitGameEvent(GameEvent.ENTITY_PLACE, blockPos, GameEvent.Emitter.of(context.getPlayer(), serverWorld.getBlockState(blockPos.down())));
 		}
 
+		// consume one item from the stack if the player is not in creative mode
+		if (player == null || !player.isCreative()) {
+			stack.decrement(1);
+		}
+		
 		return ActionResult.SUCCESS;
 	}
 

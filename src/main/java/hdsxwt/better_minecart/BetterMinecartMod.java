@@ -9,19 +9,19 @@ import hdsxwt.better_minecart.entity.EntityRegisterHandler;
 import hdsxwt.better_minecart.item.ItemRegisterHandler;
 
 public class BetterMinecartMod implements ModInitializer {
-    public static final String MOD_ID = "better_minecart";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final String MOD_ID = "better_minecart";
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final String MESSAGE_HEAD_STRING = "--- Better Minecart Mod          --- ";
-    
-    @Override
-    public void onInitialize() {
+	
+	@Override
+	public void onInitialize() {
 		LOGGER.info("--- Better Minecart Mod (1.21.11)");
-        LOGGER.info(MESSAGE_HEAD_STRING + "initialing");
-        
+		LOGGER.info(MESSAGE_HEAD_STRING + "initialing");
+		
 		ItemRegisterHandler.register();
 		EntityRegisterHandler.register();
 		MinecartInputPayload.registerForServer();
-        
-        LOGGER.info(MESSAGE_HEAD_STRING + "initialization complete");
-    }
+		
+		LOGGER.info(MESSAGE_HEAD_STRING + "initialization complete");
+	}
 }

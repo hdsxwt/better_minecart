@@ -13,15 +13,15 @@ public class AcceleratedMinecartController extends DefaultMinecartController {
 	private static final double ACCELERATION  = 0.02;
 	private static final double DECELERATION  = 0.02;
 
-    private final AcceleratedMinecartEntity minecart;
+	private final AcceleratedMinecartEntity minecart;
 
-    public AcceleratedMinecartController(AcceleratedMinecartEntity minecart) {
-        super(minecart);
-        this.minecart = minecart;
-    }
+	public AcceleratedMinecartController(AcceleratedMinecartEntity minecart) {
+		super(minecart);
+		this.minecart = minecart;
+	}
 
-    @Override
-    public void moveOnRail(ServerWorld world) {
+	@Override
+	public void moveOnRail(ServerWorld world) {
 
 		// TODO 突破30m/s 当前实现中无法达到
 		// 高速下速度抖动
@@ -38,10 +38,10 @@ public class AcceleratedMinecartController extends DefaultMinecartController {
 		Vec3d VelBefore = this.getVelocity();
 		double speedBefore = VelBefore.horizontalLength();
 
-        super.moveOnRail(world);
+		super.moveOnRail(world);
 
-        Vec3d vel = this.getVelocity();
-        double horizLen = vel.horizontalLength();
+		Vec3d vel = this.getVelocity();
+		double horizLen = vel.horizontalLength();
 
 		System.out.println("Speed: " + String.format("%.8f", this.minecart.customSpeed)
 				+ ", Vel: " + vel
@@ -67,8 +67,8 @@ public class AcceleratedMinecartController extends DefaultMinecartController {
 			vel.y,
 			vel.z / horizLen * this.minecart.customSpeed
 		));
-        
-    }
+		
+	}
 
 	@Override
 	public double getMaxSpeed(ServerWorld world) {

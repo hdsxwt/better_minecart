@@ -15,13 +15,16 @@ import java.lang.reflect.Field;
 
 public class AcceleratedMinecartEntity extends MinecartEntity {
 
+	/* override functions:
+	1. getMaxSpeed: return MAX_SPEED
+	2. controller: use AcceleratedMinecartController instead of MinecartController
+	 */
+
 	public static EntityType<AcceleratedMinecartEntity> ACCELERATED_MINECART;
 
 	public double customSpeed = 0.0;
 	public boolean inputForward  = false;
 	public boolean inputBackward = false;
-	
-	public final double MAX_SPEED     = 4.0;
 	
 	public void setInput(boolean forward, boolean backward) {
 		this.inputForward  = forward;
@@ -37,11 +40,6 @@ public class AcceleratedMinecartEntity extends MinecartEntity {
 		} catch (Exception e) {
 			throw new RuntimeException("Failed to replace minecart controller", e);
 		}
-	}
-
-	@Override
-	protected double getMaxSpeed(ServerWorld world) {
-		return MAX_SPEED;
 	}
 
 	public static void register() {

@@ -66,7 +66,7 @@ public class SpeedHudRenderer implements HudElement {
 		int speedColor = getBarColor(Math.min(speed / MAX_SPEED, 1.0));
 		
 		String speedText = Text.translatable("hud.better_minecart.speed").getString() +
-					String.format(": %.2f m/s", speed * 15);
+					String.format(": %.2f m/s", speed * 20);
 		drawContext.drawText(textRenderer, 
 				Text.literal(speedText), 
 				mainHudX + 5, mainHudY + 5, 

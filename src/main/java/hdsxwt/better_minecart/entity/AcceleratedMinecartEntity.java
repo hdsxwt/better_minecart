@@ -20,6 +20,10 @@ public class AcceleratedMinecartEntity extends MinecartEntity {
 	2. controller: use AcceleratedMinecartController instead of MinecartController
 	 */
 
+	public double acceleration  = 0.01;
+	public double decleration  = 0.02;
+	public double maxSpeed     = 4.0;
+
 	public static EntityType<AcceleratedMinecartEntity> ACCELERATED_MINECART;
 
 	public double customSpeed = 0.0;

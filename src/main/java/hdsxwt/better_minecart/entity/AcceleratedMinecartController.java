@@ -9,11 +9,6 @@ import net.minecraft.util.math.Vec3d;
 
 public class AcceleratedMinecartController extends ExperimentalMinecartController {
 
-
-	private static final double ACCELERATION  = 0.02;
-	private static final double DECELERATION  = 0.02;
-	private static final double MAX_SPEED     = 4.0;
-
 	public AcceleratedMinecartController(AcceleratedMinecartEntity minecart) {
 		super(minecart);
 	}
@@ -29,12 +24,12 @@ public class AcceleratedMinecartController extends ExperimentalMinecartControlle
 		// 高速下速度抖动
 		if (this.minecart.getFirstPassenger() instanceof PlayerEntity) {
 			if (minecart.inputForward) {
-				minecart.customSpeed = Math.min(minecart.customSpeed + ACCELERATION, this.MAX_SPEED);
+				minecart.customSpeed = Math.min(minecart.customSpeed + minecart.acceleration, minecart.maxSpeed);
 			} else if (minecart.inputBackward) {
-				minecart.customSpeed = Math.max(minecart.customSpeed - ACCELERATION, 0);
+				minecart.customSpeed = Math.max(minecart.customSpeed - minecart.decleration, 0);
 			}
 		} else {
-			minecart.customSpeed -= Math.min (Math.abs(minecart.customSpeed), DECELERATION);
+			minecart.customSpeed -= Math.min (Math.abs(minecart.customSpeed), minecart.decleration);
 		}
 
 		Vec3d VelBefore = this.getVelocity();
@@ -74,6 +69,9 @@ public class AcceleratedMinecartController extends ExperimentalMinecartControlle
 
 	@Override
 	public double getMaxSpeed(ServerWorld world) {
-		return this.MAX_SPEED;
+		if (!(this.minecart instanceof AcceleratedMinecartEntity)) {
+			throw new IllegalStateException("Controller is not attached to an AcceleratedMinecartEntity");
+		}
+		return ((AcceleratedMinecartEntity)this.minecart).maxSpeed;
 	}
 }

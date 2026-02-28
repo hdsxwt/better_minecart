@@ -20,8 +20,7 @@ public class AcceleratedMinecartController extends ExperimentalMinecartControlle
 			throw new IllegalStateException("Controller is not attached to an AcceleratedMinecartEntity");
 		}
 		AcceleratedMinecartEntity minecart = (AcceleratedMinecartEntity)this.minecart;
-		// TODO 突破30m/s 当前实现中无法达到
-		// 高速下速度抖动
+		
 		if (this.minecart.getFirstPassenger() instanceof PlayerEntity) {
 			if (minecart.inputForward) {
 				minecart.customSpeed = Math.min(minecart.customSpeed + minecart.acceleration, minecart.maxSpeed);
@@ -39,10 +38,6 @@ public class AcceleratedMinecartController extends ExperimentalMinecartControlle
 
 		Vec3d vel = this.getVelocity();
 		double horizLen = vel.horizontalLength();
-
-		System.out.println("Speed: " + String.format("%.8f", minecart.customSpeed)
-				+ ", Vel: " + vel
-				+ ", HorizLen: " + String.format("%.2f", horizLen));
 
 
 		if (speedBefore > 0.1 && horizLen < speedBefore * 0.3) {

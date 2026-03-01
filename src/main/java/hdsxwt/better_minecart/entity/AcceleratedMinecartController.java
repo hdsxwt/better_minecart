@@ -22,13 +22,21 @@ public class AcceleratedMinecartController extends ExperimentalMinecartControlle
 		AcceleratedMinecartEntity minecart = (AcceleratedMinecartEntity)this.minecart;
 		
 		if (this.minecart.getFirstPassenger() instanceof PlayerEntity) {
-			if (minecart.inputForward) {
-				minecart.customSpeed = Math.min(minecart.customSpeed + minecart.acceleration, minecart.maxSpeed);
-			} else if (minecart.inputBackward) {
-				minecart.customSpeed = Math.max(minecart.customSpeed - minecart.decleration, 0);
+			if (minecart.inputForward && minecart.isOnRail()) {
+				minecart.customSpeed = Math.min(
+					minecart.customSpeed + minecart.getAcceleration(minecart.customSpeed),
+					minecart.getMaxSpeed(minecart.customSpeed)
+				);
+			} else if (minecart.inputBackward || !minecart.isOnRail()) {
+				minecart.customSpeed = Math.max(
+					minecart.customSpeed - minecart.getDeceleration(minecart.customSpeed), 0
+				);
 			}
 		} else {
-			minecart.customSpeed -= Math.min (Math.abs(minecart.customSpeed), minecart.decleration);
+			minecart.customSpeed -= Math.min (
+				Math.abs(minecart.customSpeed),
+				minecart.getDeceleration(minecart.customSpeed)
+			);
 		}
 
 		Vec3d VelBefore = this.getVelocity();
@@ -64,9 +72,9 @@ public class AcceleratedMinecartController extends ExperimentalMinecartControlle
 
 	@Override
 	public double getMaxSpeed(ServerWorld world) {
-		if (!(this.minecart instanceof AcceleratedMinecartEntity)) {
+		if (!(this.minecart instanceof AcceleratedMinecartEntity acceleratedMinecartEntity)) {
 			throw new IllegalStateException("Controller is not attached to an AcceleratedMinecartEntity");
 		}
-		return ((AcceleratedMinecartEntity)this.minecart).maxSpeed;
+		return acceleratedMinecartEntity.getMaxSpeed(acceleratedMinecartEntity.customSpeed);
 	}
 }

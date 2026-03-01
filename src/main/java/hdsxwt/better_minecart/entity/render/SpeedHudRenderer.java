@@ -62,7 +62,7 @@ public class SpeedHudRenderer implements HudElement {
 		
 		// speed
 		double speed = minecart.getVelocity().length();
-		double maxSpeed = minecart.maxSpeed;
+		double maxSpeed = minecart.getMaxSpeed(speed);
 		int speedColor = getBarColor(Math.min(speed / maxSpeed, 1.0));
 		
 		String speedText = Text.translatable("hud.better_minecart.speed").getString() +

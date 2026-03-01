@@ -6,12 +6,24 @@ import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.state.MinecartEntityRenderState;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
 
 public class AcceleratedMinecartRenderer extends AbstractAcceleratedMinecartRenderer<AcceleratedMinecartEntity, MinecartEntityRenderState> {
 
+
+	public final static Identifier DEFAULT_TEXTURE = Identifier.of(BetterMinecartMod.MOD_ID, "textures/entity/accelerated_minecart.png");
+	public final static Identifier TEST_TEXTURE = Identifier.of(BetterMinecartMod.MOD_ID, "textures/entity/accelerated_minecart_test.png");
+	private Identifier texture;
+
 	public AcceleratedMinecartRenderer(EntityRendererFactory.Context context) {
 		super(context, EntityModelLayers.MINECART);
+		texture = DEFAULT_TEXTURE;
+	}
+
+	public AcceleratedMinecartRenderer(EntityRendererFactory.Context context, Identifier texture) {
+		super(context, EntityModelLayers.MINECART);
+		this.texture = texture;
 	}
 
 	@Override
@@ -20,11 +32,16 @@ public class AcceleratedMinecartRenderer extends AbstractAcceleratedMinecartRend
 	}
 
 	public static void register() {
-		EntityRendererFactories.register(AcceleratedMinecartEntity.ACCELERATED_MINECART, AcceleratedMinecartRenderer::new);
+		register(AcceleratedMinecartEntity.ACCELERATED_MINECART, TEST_TEXTURE);
+	}
+
+	private static void register(EntityType<AcceleratedMinecartEntity> entityType, Identifier texture) {
+		EntityRendererFactories.register(entityType,
+				(context) -> new AcceleratedMinecartRenderer(context, texture));
 	}
 
 	@Override
 	public Identifier getTexture() {
-		return Identifier.of(BetterMinecartMod.MOD_ID, "textures/entity/accelerated_minecart.png");
+		return texture;
 	}
 }

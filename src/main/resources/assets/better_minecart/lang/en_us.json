@@ -1,6 +1,18 @@
 {
 	"entity.better_minecart.accelerated_minecart": "Accelerated Minecart",
+	"entity.better_minecart.copper_minecart": "Copper Minecart",
+	"entity.better_minecart.diamond_minecart": "Diamond Minecart",
+	"entity.better_minecart.golden_minecart": "Golden Minecart",
+	"entity.better_minecart.iron_minecart": "Iron Minecart",
+	"entity.better_minecart.stone_minecart": "Stone Minecart",
+	"entity.better_minecart.wood_minecart": "Wood Minecart",
 	"hud.better_minecart.speed": "Speed",
 	"item.better_minecart.accelerated_minecart": "Accelerated Minecart",
+	"item.better_minecart.copper_minecart": "Copper Minecart",
+	"item.better_minecart.diamond_minecart": "Diamond Minecart",
+	"item.better_minecart.golden_minecart": "Golden Minecart",
+	"item.better_minecart.iron_minecart": "Iron Minecart",
+	"item.better_minecart.stone_minecart": "Stone Minecart",
+	"item.better_minecart.wood_minecart": "Wood Minecart",
 	"itemGroup.better_minecart.better_minecart_group": "Better Minecart"
 }

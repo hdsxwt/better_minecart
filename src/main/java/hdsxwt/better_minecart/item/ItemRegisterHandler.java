@@ -1,6 +1,14 @@
 package hdsxwt.better_minecart.item;
 
 import hdsxwt.better_minecart.BetterMinecartMod;
+import hdsxwt.better_minecart.entity.AcceleratedMinecartEntities.CopperMinecart;
+import hdsxwt.better_minecart.entity.AcceleratedMinecartEntities.StoneMinecart;
+import hdsxwt.better_minecart.item.AcceleratedMinecartItems.CopperMinecartItem;
+import hdsxwt.better_minecart.item.AcceleratedMinecartItems.DiamondMinecartItem;
+import hdsxwt.better_minecart.item.AcceleratedMinecartItems.GoldenMinecartItem;
+import hdsxwt.better_minecart.item.AcceleratedMinecartItems.IronMinecartItem;
+import hdsxwt.better_minecart.item.AcceleratedMinecartItems.StoneMinecartItem;
+import hdsxwt.better_minecart.item.AcceleratedMinecartItems.WoodMinecartItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -17,6 +25,12 @@ public abstract class ItemRegisterHandler {
 		BetterMinecartMod.LOGGER.info(BetterMinecartMod.MESSAGE_HEAD_STRING + "registering mod items");
 		
 		AcceleratedMinecartItem.register();
+		WoodMinecartItem.register();
+		StoneMinecartItem.register();
+		CopperMinecartItem.register();
+		IronMinecartItem.register();
+		GoldenMinecartItem.register();
+		DiamondMinecartItem.register();
 		registerAcceleratedMinecartItemGroup();
 		
 		BetterMinecartMod.LOGGER.info(BetterMinecartMod.MESSAGE_HEAD_STRING + "registering mod items complete");

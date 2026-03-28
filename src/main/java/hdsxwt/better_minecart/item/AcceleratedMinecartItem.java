@@ -5,6 +5,7 @@ import hdsxwt.better_minecart.entity.AcceleratedMinecartEntity;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.RailShape;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,6 +28,10 @@ public class AcceleratedMinecartItem extends Item {
 	public static Item.Settings ACCELERATED_MINECART_SETTINGS;
 
 	public static Item ACCELERATED_MINECART;
+
+	public EntityType<AcceleratedMinecartEntity> getMinecart() {
+		return AcceleratedMinecartEntity.ACCELERATED_MINECART;
+	}
 
 	public static void register() {
 		ACCELERATED_MINECART_KEY = RegistryKey.of(
@@ -82,10 +87,7 @@ public class AcceleratedMinecartItem extends Item {
 
 		
 		// create the minecart entity
-		AcceleratedMinecartEntity minecart = new AcceleratedMinecartEntity(
-			AcceleratedMinecartEntity.ACCELERATED_MINECART, 
-			world
-		);
+		AcceleratedMinecartEntity minecart = new AcceleratedMinecartEntity(getMinecart(), world);
 		minecart.setPosition(spawnPos.getX() + 0.5, spawnPos.getY() + offsetY, spawnPos.getZ() + 0.5);
 		minecart.setYaw(getYawFromRailShape(railShape));
 
